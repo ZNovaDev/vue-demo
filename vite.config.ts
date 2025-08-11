@@ -7,6 +7,8 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createHtmlPlugin } from 'vite-plugin-html'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 
 // https://vite.dev/config/
 export default defineConfig(({ command }) => {
@@ -16,12 +18,26 @@ export default defineConfig(({ command }) => {
       vue(),
       vueDevTools(),
       AutoImport({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [
+          // 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
+          ElementPlusResolver(),
+        // 自动导入图标组件
+        IconsResolver({
+          prefix: 'Icon',
+        }),
+      ],
         imports: ['vue', 'vue-router', 'pinia'],
         dts: true,
       }),
       Components({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [
+          // 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
+          ElementPlusResolver(),
+          // 自动注册图标组件
+          IconsResolver({
+            enabledCollections: ['ep'],
+          }),
+        ],
         dts: true,
       }),
       createHtmlPlugin({
@@ -31,7 +47,11 @@ export default defineConfig(({ command }) => {
             title: viteEnv.VITE_APP_TITLE,
           }
         }
-      })
+      }),
+      // 自动导入图标组件
+      Icons({
+        autoInstall: true,
+      }),
     ],
     resolve: {
       alias: {
