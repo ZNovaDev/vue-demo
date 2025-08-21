@@ -1,7 +1,7 @@
 import axios, { type AxiosInstance } from 'axios'
 
-const http: AxiosInstance = axios.create({
-  baseURL: '/api',              // 配合 vite proxy
+export const http: AxiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,              // 配合 vite proxy
   timeout: 10000
 })
 
@@ -44,5 +44,3 @@ http.interceptors.response.use(function (response) {
 
   return Promise.reject(error);
 });
-
-export default http
