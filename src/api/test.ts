@@ -1,5 +1,4 @@
-import { http } from "@/utils/request";
-
+import http from "@/utils/request";
 
 export const getTest = (params: any) => {
   return http({
