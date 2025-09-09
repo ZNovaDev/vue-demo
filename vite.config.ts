@@ -40,14 +40,6 @@ export default defineConfig(({ command }) => {
         ],
         dts: true,
       }),
-      createHtmlPlugin({
-        minify: true,
-        inject: {
-          data: {
-            title: viteEnv.VITE_APP_TITLE,
-          }
-        }
-      }),
       // 自动导入图标组件
       Icons({
         autoInstall: true,
@@ -70,6 +62,7 @@ export default defineConfig(({ command }) => {
         },
       },
     },
+    base: './',
     build: {
       reportCompressedSize: false,
       // 消除打包大小超过500kb警告
